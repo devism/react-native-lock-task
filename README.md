@@ -1,6 +1,9 @@
 
 # react-native-lock-task
 
+## What's Changed
+Updated compileSdkVersion and targetSdkVersion to 34. This update makes it compatible with React Native Android SDK 34
+
 ## Getting started
 
 `$ npm install react-native-lock-task --save`
@@ -86,7 +89,33 @@
 * `adb shell dpm set-device-owner com.yourProject/com.rnlocktask.MyAdmin`
 
 ## Usage
+
+
+1. Create a TypeScript Declaration File
+
+In your project, create a new file named something like `react-native-lock-task.d.ts` in a directory thats included in your TypeScript compilation context (often at the root of your project or in a types directory).
+
+2. Declare the Module
+
+In your .d.ts file, declare the module. If you just want to bypass the type error, you can use the following basic declaration that treats the module as any type:
+
 ```javascript
+declare module 'react-native-lock-task' {
+  interface RNLockTask {
+    startLockTask(): void;
+    stopLockTask(): void;
+    isAppInLockTaskMode(): Promise<boolean>;
+    // Add other methods and properties as needed
+  }
+
+  const rnLockTask: RNLockTask;
+  export default rnLockTask;
+}
+```
+3. Import
+
+```javascript
+
 import RNLockTask from 'react-native-lock-task';
 RNLockTask.isAppInLockTaskMode();
 RNLockTask.startLockTask();
